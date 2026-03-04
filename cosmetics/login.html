@@ -10,36 +10,148 @@
     .card { border: 1px solid #f0c0cc; border-radius: 10px; }
     .btn-pink { background: #e75480; color: white; border: none; }
     .btn-pink:hover { background: #c93b68; color: white; }
-    h2 { color: #c93b68; }
     a { color: #e75480; }
     .brand { font-size: 2rem; color: #e75480; font-weight: bold; letter-spacing: 1px; }
     .sub { color: #888; font-size: 0.95rem; }
+
+    /* Feedback */
+    .field-error   { font-size: 0.78rem; color: #dc3545; margin-top: 3px; display: none; }
+    .field-success { font-size: 0.78rem; color: #198754; margin-top: 3px; display: none; }
+    input.is-invalid { border-color: #dc3545 !important; box-shadow: none !important; background-image: none !important; }
+    input.is-valid   { border-color: #198754 !important; box-shadow: none !important; background-image: none !important; }
+
+    /* Password strength bar */
+    .strength-wrap { height: 6px; background: #e9ecef; border-radius: 4px; margin-top: 7px; overflow: hidden; }
+    .strength-fill { height: 100%; width: 0; border-radius: 4px; transition: width .3s, background .3s; }
+    .strength-text { font-size: 0.78rem; font-weight: bold; margin-top: 3px; min-height: 16px; }
+
+    /* Rules list */
+    .pw-rules { list-style: none; padding: 0; margin: 6px 0 0; font-size: 0.78rem; }
+    .pw-rules li { color: #bbb; margin-bottom: 2px; }
+    .pw-rules li::before { content: "✗ "; color: #dc3545; }
+    .pw-rules li.ok { color: #198754; }
+    .pw-rules li.ok::before { content: "✓ "; color: #198754; }
   </style>
 </head>
 <body>
-  <div class="d-flex align-items-center justify-content-center min-vh-100">
-    <div class="card p-4 shadow-sm" style="width:100%;max-width:400px;">
-      <div class="text-center mb-4">
-        <div class="brand">GlowSy</div>
-        <p class="sub">Your beauty, your way</p>
-      </div>
-      <h2 class="text-center mb-3" style="font-size:1.4rem;">Login to your account</h2>
-      <div class="mb-3">
-        <label class="form-label">Email address</label>
-        <input type="email" class="form-control" placeholder="you@example.com"/>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Password</label>
-        <input type="password" class="form-control" placeholder="Enter your password"/>
-      </div>
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="remember"/>
-        <label class="form-check-label" for="remember">Remember me</label>
-      </div>
-      <a href="home.html"><button class="btn btn-pink w-100 mb-2">Login</button></a>
-      <p class="text-center mt-2 mb-0" style="font-size:0.9rem;">Don't have an account? <a href="signup.html">Sign up</a></p>
-      <p class="text-center mt-1" style="font-size:0.9rem;"><a href="#">Forgot password?</a></p>
+<div class="d-flex align-items-center justify-content-center min-vh-100">
+  <div class="card p-4 shadow-sm" style="width:100%;max-width:420px;">
+
+    <div class="text-center mb-4">
+      <div class="brand">GlowSy</div>
+      <p class="sub">Your beauty, your way</p>
+    </div>
+    <h2 class="text-center mb-3" style="font-size:1.4rem; color:#c93b68;">Login to your account</h2>
+
+    <!-- Email -->
+    <div class="mb-3">
+      <label class="form-label">Email Address</label>
+      <input type="text" id="email" class="form-control" placeholder="you@example.com" oninput="validateEmail()"/>
+      <div class="field-error"   id="errEmail">Please enter a valid email address (e.g. name@domain.com).</div>
+      <div class="field-success" id="okEmail">✓ Valid email address</div>
+    </div>
+
+    <!-- Password -->
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input type="password" id="password" class="form-control" placeholder="Enter your password" oninput="validatePassword()"/>
+      <div class="strength-wrap"><div class="strength-fill" id="strengthFill"></div></div>
+      <div class="strength-text" id="strengthText"></div>
+      <ul class="pw-rules" id="pwRules">
+        <li id="rLen">At least 8 characters</li>
+        <li id="rUpper">At least one uppercase letter (A–Z)</li>
+        <li id="rLower">At least one lowercase letter (a–z)</li>
+        <li id="rNum">At least one number (0–9)</li>
+      </ul>
+      <div class="field-error" id="errPassword">Password does not meet all the requirements above.</div>
+    </div>
+
+    <!-- Remember me -->
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="remember"/>
+      <label class="form-check-label" for="remember">Remember me</label>
+    </div>
+
+    <!-- Submit -->
+    <button class="btn btn-pink w-100 mb-2" id="loginBtn" onclick="submitLogin()">Login</button>
+    <p class="text-center mt-2 mb-0" style="font-size:0.9rem;">Don't have an account? <a href="signup.html">Sign up</a></p>
+    <p class="text-center mt-1" style="font-size:0.9rem;"><a href="#">Forgot password?</a></p>
+
+    <!-- Success alert -->
+    <div id="successMsg" style="display:none; margin-top:14px; background:#fff0f5; border:1px solid #e75480; color:#c93b68; border-radius:8px; padding:12px; text-align:center; font-size:0.95rem;">
+       Login successful! <a href="home.html">Go to Home →</a>
+    </div>
+
+    <!-- Error alert (wrong credentials simulation) -->
+    <div id="loginErrMsg" style="display:none; margin-top:14px; background:#fff3f3; border:1px solid #dc3545; color:#dc3545; border-radius:8px; padding:12px; text-align:center; font-size:0.9rem;">
+       Invalid email or password. Please try again.
     </div>
   </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+  const $ = id => document.getElementById(id);
+  function setValid(id)   { const el=$(id); el.classList.remove('is-invalid'); el.classList.add('is-valid'); }
+  function setInvalid(id) { const el=$(id); el.classList.remove('is-valid');   el.classList.add('is-invalid'); }
+  function showEl(id)     { $(id).style.display='block'; }
+  function hideEl(id)     { $(id).style.display='none'; }
+
+  /* ── Email ─────────────────────────────────────── */
+  function validateEmail() {
+    const val = $('email').value.trim();
+    const ok  = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val);
+    if (!ok) { setInvalid('email'); showEl('errEmail'); hideEl('okEmail'); return false; }
+    setValid('email'); hideEl('errEmail'); showEl('okEmail'); return true;
+  }
+
+  /* ── Password ──────────────────────────────────── */
+  function validatePassword() {
+    const val   = $('password').value;
+    const rules = {
+      Len:   val.length >= 8,
+      Upper: /[A-Z]/.test(val),
+      Lower: /[a-z]/.test(val),
+      Num:   /[0-9]/.test(val),
+    };
+
+    Object.entries(rules).forEach(([k, pass]) => {
+      const li = $('r' + k);
+      if (li) { if (pass) li.classList.add('ok'); else li.classList.remove('ok'); }
+    });
+
+    const passed = Object.values(rules).filter(Boolean).length;
+    const fill   = $('strengthFill');
+    const text   = $('strengthText');
+
+    if (val.length === 0) {
+      fill.style.width='0'; fill.style.background=''; text.textContent=''; text.style.color='';
+    } else if (passed <= 2) {
+      fill.style.width='33%'; fill.style.background='#dc3545';
+      text.textContent='Strength: Poor'; text.style.color='#dc3545';
+    } else if (passed === 3) {
+      fill.style.width='66%'; fill.style.background='#fd7e14';
+      text.textContent='Strength: Medium'; text.style.color='#fd7e14';
+    } else {
+      fill.style.width='100%'; fill.style.background='#198754';
+      text.textContent='Strength: Strong'; text.style.color='#198754';
+    }
+
+    if (passed < 4) { setInvalid('password'); showEl('errPassword'); return false; }
+    setValid('password'); hideEl('errPassword'); return true;
+  }
+
+  /* ── Login Submit ──────────────────────────────── */
+  function submitLogin() {
+    hideEl('successMsg'); hideEl('loginErrMsg');
+    const v1 = validateEmail();
+    const v2 = validatePassword();
+    if (v1 && v2) {
+      $('successMsg').style.display = 'block';
+      $('loginBtn').disabled = true;
+      $('loginBtn').textContent = '✓ Logged In';
+    }
+  }
+</script>
 </body>
 </html>
