@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GlowShop - Categories</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    body { font-family: Georgia, serif; background: #fff; }
+    .navbar { background: #fff0f5; border-bottom: 1px solid #f0c0cc; }
+    .navbar-brand { color: #e75480 !important; font-size: 1.5rem; font-weight: bold; }
+    .nav-link { color: #555 !important; }
+    .nav-link:hover { color: #e75480 !important; }
+    .page-header { background: #fff0f5; padding: 40px 20px; text-align: center; border-bottom: 1px solid #f0c0cc; }
+    .page-header h2 { color: #c93b68; }
+    .page-header p { color: #888; }
+    .cat-card { border: 1px solid #f0c0cc; border-radius: 10px; overflow: hidden; text-decoration: none; color: inherit; display: block; transition: 0.2s; }
+    .cat-card:hover { border-color: #e75480; transform: translateY(-3px); box-shadow: 0 4px 14px rgba(231,84,128,0.15); }
+    .cat-card img { width: 100%; height: 180px; object-fit: cover; display: block; }
+    .cat-card .cat-body { padding: 14px 16px; text-align: center; }
+    .cat-card h4 { color: #c93b68; font-size: 1.1rem; margin-bottom: 6px; }
+    .cat-card p { color: #777; font-size: 0.88rem; margin-bottom: 10px; }
+    .cat-card span { background: #e75480; color: white; padding: 4px 14px; border-radius: 20px; font-size: 0.85rem; }
+    footer { background: #fff0f5; border-top: 1px solid #f0c0cc; padding: 20px; text-align: center; color: #888; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="home.html">GlowSy</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto gap-2">
+        <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="categories.html">Categories</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+        <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h2>All Categories</h2>
+  <p>Browse our collection of beauty and cosmetic products</p>
+</div>
+
+<div class="container my-5">
+  <div class="row g-4">
+    <div class="col-sm-6 col-md-3">
+      <a href="category-skincare.html" class="cat-card">
+        <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=180&fit=crop" alt="Skincare"/>
+        <div class="cat-body">
+          <h4>Skincare</h4>
+          <p>Moisturizers, serums, cleansers and more for healthy glowing skin.</p>
+          <span>5 Products</span>
+        </div>
+      </a>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <a href="category-makeup.html" class="cat-card">
+        <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=180&fit=crop" alt="Makeup"/>
+        <div class="cat-body">
+          <h4>Makeup</h4>
+          <p>Lipsticks, foundations, eyeshadows and all your makeup must-haves.</p>
+          <span>5 Products</span>
+        </div>
+      </a>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <a href="category-haircare.html" class="cat-card">
+        <img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=400&h=180&fit=crop" alt="Haircare"/>
+        <div class="cat-body">
+          <h4>Haircare</h4>
+          <p>Shampoos, conditioners, serums for silky smooth hair.</p>
+          <span>5 Products</span>
+        </div>
+      </a>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <a href="category-fragrance.html" class="cat-card">
+        <img src="fragrance.jpeg" alt="Fragrance"/>
+        <div class="cat-body">
+          <h4>Fragrance</h4>
+          <p>Perfumes and body mists that keep you smelling fresh all day.</p>
+          <span>5 Products</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 GlowShop. All rights reserved. | <a href="contact.html" style="color:#e75480;">Contact Us</a></p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

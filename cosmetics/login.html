@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GlowShop - Login</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    body { background: #fff5f8; font-family: Georgia, serif; }
+    .card { border: 1px solid #f0c0cc; border-radius: 10px; }
+    .btn-pink { background: #e75480; color: white; border: none; }
+    .btn-pink:hover { background: #c93b68; color: white; }
+    h2 { color: #c93b68; }
+    a { color: #e75480; }
+    .brand { font-size: 2rem; color: #e75480; font-weight: bold; letter-spacing: 1px; }
+    .sub { color: #888; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <div class="d-flex align-items-center justify-content-center min-vh-100">
+    <div class="card p-4 shadow-sm" style="width:100%;max-width:400px;">
+      <div class="text-center mb-4">
+        <div class="brand">GlowSy</div>
+        <p class="sub">Your beauty, your way</p>
+      </div>
+      <h2 class="text-center mb-3" style="font-size:1.4rem;">Login to your account</h2>
+      <div class="mb-3">
+        <label class="form-label">Email address</label>
+        <input type="email" class="form-control" placeholder="you@example.com"/>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-control" placeholder="Enter your password"/>
+      </div>
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="remember"/>
+        <label class="form-check-label" for="remember">Remember me</label>
+      </div>
+      <a href="home.html"><button class="btn btn-pink w-100 mb-2">Login</button></a>
+      <p class="text-center mt-2 mb-0" style="font-size:0.9rem;">Don't have an account? <a href="signup.html">Sign up</a></p>
+      <p class="text-center mt-1" style="font-size:0.9rem;"><a href="#">Forgot password?</a></p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GlowShop - Home</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    body { font-family: Georgia, serif; background: #fff; }
+    .navbar { background: #fff0f5; border-bottom: 1px solid #f0c0cc; }
+    .navbar-brand { color: #e75480 !important; font-size: 1.5rem; font-weight: bold; }
+    .nav-link { color: #555 !important; }
+    .nav-link:hover { color: #e75480 !important; }
+    .btn-pink { background: #e75480; color: white; border: none; }
+    .btn-pink:hover { background: #c93b68; color: white; }
+    .hero { background: #fff0f5; padding: 70px 20px; text-align: center; }
+    .hero h1 { color: #c93b68; font-size: 2.4rem; }
+    .hero p { color: #666; font-size: 1.1rem; }
+    .section-title { color: #c93b68; font-size: 1.5rem; border-bottom: 2px solid #f0c0cc; padding-bottom: 8px; margin-bottom: 20px; }
+    .cat-card { border: 1px solid #f0c0cc; border-radius: 8px; overflow: hidden; cursor: pointer; transition: 0.2s; text-decoration: none; color: inherit; display: block; }
+    .cat-card:hover { border-color: #e75480; transform: translateY(-3px); box-shadow: 0 4px 14px rgba(231,84,128,0.12); }
+    .cat-card img { width: 100%; height: 130px; object-fit: cover; display: block; }
+    .cat-card h5 { color: #c93b68; font-size: 0.95rem; margin: 0; padding: 10px; text-align: center; }
+    .product-card { border: 1px solid #f0c0cc; border-radius: 8px; overflow: hidden; text-align: center; }
+    .product-card img { width: 100%; height: 160px; object-fit: cover; display: block; }
+    .product-card .p-body { padding: 12px; }
+    .product-card h6 { color: #333; font-size: 0.95rem; }
+    .price { color: #e75480; font-weight: bold; }
+    footer { background: #fff0f5; border-top: 1px solid #f0c0cc; padding: 20px; text-align: center; color: #888; font-size: 0.9rem; }
+    .placeholder-img { width: 100%; height: 160px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; background: #fce4ec; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="home.html">GlowSy by Gia</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto gap-2">
+        <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="categories.html">Categories</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+        <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <h1>Welcome to GlowSy</h1>
+  <p>Find your favorite cosmetics — skincare, makeup, haircare and more.</p>
+  <a href="categories.html" class="btn btn-pink mt-2 px-4">Shop Now</a>
+</section>
+
+<!-- Categories Preview -->
+<div class="container my-5">
+  <h3 class="section-title">Shop by Category</h3>
+  <div class="row g-3">
+    <div class="col-6 col-md-3">
+      <a href="category-skincare.html" class="cat-card">
+        <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=130&fit=crop" alt="Skincare"/>
+        <h5>Skincare</h5>
+      </a>
+    </div>
+    <div class="col-6 col-md-3">
+      <a href="category-makeup.html" class="cat-card">
+        <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=130&fit=crop" alt="Makeup"/>
+        <h5>Makeup</h5>
+      </a>
+    </div>
+    <div class="col-6 col-md-3">
+      <a href="category-haircare.html" class="cat-card">
+        <img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=400&h=130&fit=crop" alt="Haircare"/>
+        <h5>Haircare</h5>
+      </a>
+    </div>
+    <div class="col-6 col-md-3">
+      <a href="category-fragrance.html" class="cat-card">
+        <img src="1.jpg" alt="Fragrance"/>
+        <h5>Fragrance</h5>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Featured Products -->
+<div class="container mb-5">
+  <h3 class="section-title">Featured Products</h3>
+  <div class="row g-3">
+    <div class="col-6 col-md-3">
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=160&fit=crop" alt="Glow Face Wash"/>
+        <div class="p-body">
+          <h6>Glow Face Wash</h6>
+          <p class="price">$12.99</p>
+          <button class="btn btn-pink btn-sm w-100">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=160&fit=crop" alt="Rose Lip Gloss"/>
+        <div class="p-body">
+          <h6>Rose Lip Gloss</h6>
+          <p class="price">$8.49</p>
+          <button class="btn btn-pink btn-sm w-100">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="product-card">
+        <img src="2.jpg" alt="Bloom Perfume"/>
+        <div class="p-body">
+          <h6>Bloom Perfume</h6>
+          <p class="price">$24.99</p>
+          <button class="btn btn-pink btn-sm w-100">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=400&h=160&fit=crop" alt="Silk Hair Serum"/>
+        <div class="p-body">
+          <h6>Silk Hair Serum</h6>
+          <p class="price">$15.00</p>
+          <button class="btn btn-pink btn-sm w-100">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Banner -->
+<div style="background:#fff0f5; padding:40px 20px; text-align:center; border-top:1px solid #f0c0cc; border-bottom:1px solid #f0c0cc;">
+  <h4 style="color:#c93b68;">Free Shipping on orders over $40 </h4>
+  <p style="color:#888;">Use code <strong>GLOW10</strong> for 10% off your first order</p>
+  <a href="categories.html" class="btn btn-pink">Browse All Products</a>
+</div>
+
+<footer>
+  <p>© 2025 GlowShop. All rights reserved. | <a href="contact.html" style="color:#e75480;">Contact Us</a></p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
