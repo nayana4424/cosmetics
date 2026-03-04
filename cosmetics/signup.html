@@ -10,49 +10,215 @@
     .card { border: 1px solid #f0c0cc; border-radius: 10px; }
     .btn-pink { background: #e75480; color: white; border: none; }
     .btn-pink:hover { background: #c93b68; color: white; }
-    h2 { color: #c93b68; }
     a { color: #e75480; }
     .brand { font-size: 2rem; color: #e75480; font-weight: bold; }
     .sub { color: #888; font-size: 0.95rem; }
+
+    /* Feedback text */
+    .field-error   { font-size: 0.78rem; color: #dc3545; margin-top: 3px; display: none; }
+    .field-success { font-size: 0.78rem; color: #198754; margin-top: 3px; display: none; }
+    input.is-invalid { border-color: #dc3545 !important; box-shadow: none !important; background-image: none !important; }
+    input.is-valid   { border-color: #198754 !important; box-shadow: none !important; background-image: none !important; }
+
+    /* Password strength bar */
+    .strength-wrap { height: 6px; background: #e9ecef; border-radius: 4px; margin-top: 7px; overflow: hidden; }
+    .strength-fill { height: 100%; width: 0; border-radius: 4px; transition: width .3s, background .3s; }
+    .strength-text { font-size: 0.78rem; font-weight: bold; margin-top: 3px; min-height: 16px; }
+
+    /* Password rules list */
+    .pw-rules { list-style: none; padding: 0; margin: 6px 0 0; font-size: 0.78rem; }
+    .pw-rules li { color: #bbb; margin-bottom: 2px; }
+    .pw-rules li::before { content: "✗ "; color: #dc3545; }
+    .pw-rules li.ok { color: #198754; }
+    .pw-rules li.ok::before { content: "✓ "; color: #198754; }
   </style>
 </head>
 <body>
-  <div class="d-flex align-items-center justify-content-center min-vh-100 py-4">
-    <div class="card p-4 shadow-sm" style="width:100%;max-width:420px;">
-      <div class="text-center mb-3">
-        <div class="brand">GlowSy</div>
-        <p class="sub">Create your account</p>
+<div class="d-flex align-items-center justify-content-center min-vh-100 py-4">
+  <div class="card p-4 shadow-sm" style="width:100%;max-width:450px;">
+
+    <div class="text-center mb-3">
+      <div class="brand">GlowSy</div>
+      <p class="sub">Create your account</p>
+    </div>
+    <h2 class="text-center mb-3" style="font-size:1.4rem; color:#c93b68;">Sign Up</h2>
+
+    <!-- First & Last Name -->
+    <div class="row g-2 mb-2">
+      <div class="col">
+        <label class="form-label">First Name</label>
+        <input type="text" id="firstName" class="form-control" placeholder="Jane" oninput="validateName('firstName','errFirstName')"/>
+        <div class="field-error" id="errFirstName">First name is required.</div>
       </div>
-      <h2 class="text-center mb-3" style="font-size:1.4rem;">Sign Up</h2>
-      <div class="row g-2 mb-2">
-        <div class="col">
-          <label class="form-label">First Name</label>
-          <input type="text" class="form-control" placeholder="Jane"/>
-        </div>
-        <div class="col">
-          <label class="form-label">Last Name</label>
-          <input type="text" class="form-control" placeholder="Doe"/>
-        </div>
+      <div class="col">
+        <label class="form-label">Last Name</label>
+        <input type="text" id="lastName" class="form-control" placeholder="Doe" oninput="validateName('lastName','errLastName')"/>
+        <div class="field-error" id="errLastName">Last name is required.</div>
       </div>
-      <div class="mb-2">
-        <label class="form-label">Email address</label>
-        <input type="email" class="form-control" placeholder="you@example.com"/>
-      </div>
-      <div class="mb-2">
-        <label class="form-label">Password</label>
-        <input type="password" class="form-control" placeholder="Create a password"/>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Confirm Password</label>
-        <input type="password" class="form-control" placeholder="Repeat your password"/>
-      </div>
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="terms"/>
-        <label class="form-check-label" for="terms">I agree to the <a href="#">Terms &amp; Conditions</a></label>
-      </div>
-      <a href="home.html"><button class="btn btn-pink w-100 mb-2">Create Account</button></a>
-      <p class="text-center mt-2 mb-0" style="font-size:0.9rem;">Already have an account? <a href="login.html">Login</a></p>
+    </div>
+
+    <!-- Email -->
+    <div class="mb-2">
+      <label class="form-label">Email Address</label>
+      <input type="text" id="email" class="form-control" placeholder="you@example.com" oninput="validateEmail()"/>
+      <div class="field-error"   id="errEmail">Please enter a valid email (e.g. name@domain.com).</div>
+      <div class="field-success" id="okEmail">✓ Valid email address</div>
+    </div>
+
+    <!-- Phone -->
+    <div class="mb-2">
+      <label class="form-label">Phone Number</label>
+      <input type="text" id="phone" class="form-control" placeholder="e.g. 1234567890 or 123-456-7890" oninput="validatePhone()"/>
+      <div class="field-error"   id="errPhone">Must be 10 digits. Accepted formats: 1234567890 &nbsp;|&nbsp; 123-456-7890 &nbsp;|&nbsp; 123.456.7890 &nbsp;|&nbsp; 123 456 7890</div>
+      <div class="field-success" id="okPhone">✓ Valid phone number</div>
+    </div>
+
+    <!-- Password -->
+    <div class="mb-2">
+      <label class="form-label">Password</label>
+      <input type="password" id="password" class="form-control" placeholder="Create a password" oninput="validatePassword()"/>
+      <div class="strength-wrap"><div class="strength-fill" id="strengthFill"></div></div>
+      <div class="strength-text" id="strengthText"></div>
+      <ul class="pw-rules" id="pwRules">
+        <li id="rLen">At least 8 characters</li>
+        <li id="rUpper">At least one uppercase letter (A–Z)</li>
+        <li id="rLower">At least one lowercase letter (a–z)</li>
+        <li id="rNum">At least one number (0–9)</li>
+      </ul>
+      <div class="field-error" id="errPassword">Password does not meet all the requirements above.</div>
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="mb-3">
+      <label class="form-label">Confirm Password</label>
+      <input type="password" id="confirmPw" class="form-control" placeholder="Repeat your password" oninput="validateConfirm()"/>
+      <div class="field-error"   id="errConfirm">Passwords do not match.</div>
+      <div class="field-success" id="okConfirm">✓ Passwords match</div>
+    </div>
+
+    <!-- Terms -->
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="terms" onchange="clearTermsErr()"/>
+      <label class="form-check-label" for="terms">I agree to the <a href="#">Terms &amp; Conditions</a></label>
+      <div class="field-error" id="errTerms" style="display:none;">You must agree to the Terms &amp; Conditions.</div>
+    </div>
+
+    <!-- Submit button -->
+    <button class="btn btn-pink w-100 mb-2" id="submitBtn" onclick="submitForm()">Create Account</button>
+    <p class="text-center mt-2 mb-0" style="font-size:0.9rem;">Already have an account? <a href="login.html">Login</a></p>
+
+    <!-- Success alert -->
+    <div id="successMsg" style="display:none; margin-top:14px; background:#fff0f5; border:1px solid #e75480; color:#c93b68; border-radius:8px; padding:12px; text-align:center; font-size:0.95rem;">
+      🎉 Account created successfully! <a href="home.html">Go to Home →</a>
     </div>
   </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+  /* ── Utility ────────────────────────────────────── */
+  const $ = id => document.getElementById(id);
+  function setValid(id)   { const el=$(id); el.classList.remove('is-invalid'); el.classList.add('is-valid'); }
+  function setInvalid(id) { const el=$(id); el.classList.remove('is-valid');   el.classList.add('is-invalid'); }
+  function setNeutral(id) { const el=$(id); el.classList.remove('is-valid','is-invalid'); }
+  function showEl(id)     { $(id).style.display='block'; }
+  function hideEl(id)     { $(id).style.display='none'; }
+
+  /* ── Name Validation ────────────────────────────── */
+  function validateName(fieldId, errId) {
+    const val = $(fieldId).value.trim();
+    if (val.length === 0) { setInvalid(fieldId); showEl(errId); return false; }
+    setValid(fieldId); hideEl(errId); return true;
+  }
+
+  /* ── Email Validation ───────────────────────────── */
+  function validateEmail() {
+    const val = $('email').value.trim();
+    const ok  = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val);
+    if (!ok) { setInvalid('email'); showEl('errEmail'); hideEl('okEmail'); return false; }
+    setValid('email'); hideEl('errEmail'); showEl('okEmail'); return true;
+  }
+
+  /* ── Phone Validation ───────────────────────────── */
+  // Allowed: 10 digits, XXX-XXX-XXXX, XXX.XXX.XXXX, XXX XXX XXXX
+  function validatePhone() {
+    const val = $('phone').value.trim();
+    const ok  = /^(\d{10}|\d{3}[-.\s]\d{3}[-.\s]\d{4})$/.test(val);
+    if (!ok) { setInvalid('phone'); showEl('errPhone'); hideEl('okPhone'); return false; }
+    setValid('phone'); hideEl('errPhone'); showEl('okPhone'); return true;
+  }
+
+  /* ── Password Validation ────────────────────────── */
+  function validatePassword() {
+    const val  = $('password').value;
+    const rules = {
+      rLen:   val.length >= 8,
+      rUpper: /[A-Z]/.test(val),
+      rLower: /[a-z]/.test(val),
+      rNum:   /[0-9]/.test(val),
+    };
+
+    // Update rule checklist
+    Object.entries(rules).forEach(([id, pass]) => {
+      if (pass) $('r' + id.slice(1)).classList.add('ok');
+      else      $('r' + id.slice(1)).classList.remove('ok');
+    });
+
+    const passed = Object.values(rules).filter(Boolean).length;
+    const fill   = $('strengthFill');
+    const text   = $('strengthText');
+
+    if (val.length === 0) {
+      fill.style.width='0'; fill.style.background=''; text.textContent=''; text.style.color='';
+    } else if (passed <= 2) {
+      fill.style.width='33%'; fill.style.background='#dc3545';
+      text.textContent='Strength: Poor'; text.style.color='#dc3545';
+    } else if (passed === 3) {
+      fill.style.width='66%'; fill.style.background='#fd7e14';
+      text.textContent='Strength: Medium'; text.style.color='#fd7e14';
+    } else {
+      fill.style.width='100%'; fill.style.background='#198754';
+      text.textContent='Strength: Strong'; text.style.color='#198754';
+    }
+
+    const allOk = passed === 4;
+    if (!allOk) { setInvalid('password'); showEl('errPassword'); return false; }
+    setValid('password'); hideEl('errPassword');
+    if ($('confirmPw').value.length > 0) validateConfirm();
+    return true;
+  }
+
+  /* ── Confirm Password ───────────────────────────── */
+  function validateConfirm() {
+    const pw  = $('password').value;
+    const cpw = $('confirmPw').value;
+    if (cpw.length === 0) { setNeutral('confirmPw'); hideEl('errConfirm'); hideEl('okConfirm'); return false; }
+    if (pw !== cpw) { setInvalid('confirmPw'); showEl('errConfirm'); hideEl('okConfirm'); return false; }
+    setValid('confirmPw'); hideEl('errConfirm'); showEl('okConfirm'); return true;
+  }
+
+  /* ── Terms ──────────────────────────────────────── */
+  function clearTermsErr() {
+    if ($('terms').checked) hideEl('errTerms');
+  }
+
+  /* ── Form Submit ────────────────────────────────── */
+  function submitForm() {
+    const v1  = validateName('firstName','errFirstName');
+    const v2  = validateName('lastName', 'errLastName');
+    const v3  = validateEmail();
+    const v4  = validatePhone();
+    const v5  = validatePassword();
+    const v6  = validateConfirm();
+    const agreed = $('terms').checked;
+    if (!agreed) showEl('errTerms'); else hideEl('errTerms');
+
+    if (v1 && v2 && v3 && v4 && v5 && v6 && agreed) {
+      $('successMsg').style.display = 'block';
+      $('submitBtn').disabled = true;
+      $('submitBtn').textContent = '✓ Account Created';
+    }
+  }
+</script>
 </body>
 </html>
